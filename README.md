@@ -1,5 +1,3 @@
-# Fork de : https://github.com/LAB-MI/attestation-deplacement-derogatoire-q4-2020
-
 # Générateur de certificat de déplacement
 
 ## Développer
@@ -7,8 +5,8 @@
 ### Installer le projet
 
 ```console
-git clone https://github.com/DomotechDiscord/Covid19.git
-cd Covid19
+git clone https://github.com/LAB-MI/attestation-deplacement-derogatoire-q4-2020.git
+cd attestation-deplacement-derogatoire-q4-2020
 npm i
 npm start
 ```

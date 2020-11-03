@@ -1,3 +1,5 @@
+import removeAccents from 'remove-accents'
+
 import { $, $$, downloadBlob } from './dom-utils'
 import { addSlash, getFormattedDate, setParam } from './util'
 import pdfBase from '../certificate.pdf'
@@ -61,6 +63,15 @@ export function setReleaseDateTime (releaseDateInput, loadedDate = new Date()) {
   releaseDateInput.value = getFormattedDate(loadedDate)
 }
 
+export function toAscii (string) {
+  if (typeof string !== 'string') {
+    throw new Error('Need string')
+  }
+  const accentsRemoved = removeAccents(string)
+  const asciiString = accentsRemoved.replace(/[^\x00-\x7F]/g, '') // eslint-disable-line no-control-regex
+  return asciiString
+}
+
 export function setReleaseHourTime (releaseTimeInput, loadedDate = new Date()) {
   releaseTimeInput.value = loadedDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
 }
@@ -72,6 +83,9 @@ export function getProfile (formInputs) {
     if (field.id === 'field-datesortie') {
       const dateSortie = field.value.split('-')
       value = `${dateSortie[2]}/${dateSortie[1]}/${dateSortie[0]}`
+    }
+    if (typeof value === 'string') {
+      value = toAscii(value)
     }
     fields[field.id.substring('field-'.length)] = value
   }
